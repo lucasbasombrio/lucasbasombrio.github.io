@@ -1,204 +1,421 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lucas Basombrio</title>
-  <meta name="description" content="Portafolio personal" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0d1330;         /* fondo principal */
-      --panel:#0b1229;      /* paneles/cards */
-      --text:#e6e8ff;       /* texto principal */
-      --muted:#a2add0;      /* texto secundario */
-      --accent:#8ea2ff;     /* acentos/links */
-      --line:#2a355d;       /* líneas y bordes */
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--text);
-      background:radial-gradient(1200px 800px at 20% -10%, #1a224c 0%, transparent 60%),
-                 radial-gradient(1200px 800px at 120% 10%, #1a224c 0%, transparent 55%),
-                 var(--bg);
-    }
-    .container{max-width:1120px;margin:auto;padding:0 24px}
-    /* NAV */
-    .nav{position:sticky;top:0;z-index:30;background:rgba(13,19,48,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
-    .brand{font-weight:700;letter-spacing:.3px}
-    .nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0}
-    .nav a{color:var(--text);text-decoration:none;font-weight:500;opacity:.85}
-    .nav a:hover{opacity:1}
-    .nav .btn{display:none}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lucas Basombrio</title>
+    <meta name="description" content="Portafolio personal" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d1330; /* fondo principal */
+        --panel: #0b1229; /* paneles/cards */
+        --text: hsl(235, 100%, 95%); /* texto principal */
+        --muted: #a2add0; /* texto secundario */
+        --accent: #8ea2ff; /* acentos/links */
+        --line: #2a355d; /* líneas y bordes */
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+          "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(
+            1200px 800px at 20% -10%,
+            #1a224c 0%,
+            transparent 60%
+          ),
+          radial-gradient(1200px 800px at 120% 10%, #1a224c 0%, transparent 55%),
+          var(--bg);
+      }
+      .container {
+        max-width: 1120px;
+        margin: auto;
+        padding: 0 24px;
+      }
+      /* NAV */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(13, 19, 48, 0.7);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 72px;
+      }
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav ul {
+        list-style: none;
+        display: flex;
+        gap: 28px;
+        margin: 0;
+        padding: 0;
+      }
+      .nav a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        opacity: 0.85;
+      }
+      .nav a:hover {
+        opacity: 1;
+      }
+      .nav .btn {
+        display: none;
+      }
 
-    /* HERO */
-    .hero{padding:72px 0 36px;border-bottom:1px solid var(--line)}
-    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:32px}
-    h1{font-size:clamp(38px,7vw,86px);margin:0 0 8px;line-height:1.02}
-    .surname{display:block}
-    .role{font-size:clamp(18px,2.6vw,28px);color:var(--muted);margin-top:12px;position:relative;padding-left:4px}
-    .role:after{content:"";display:block;width:84px;height:3px;background:var(--accent);margin-top:10px;border-radius:3px}
-    .hero-photo-wrap{position:relative}
-    .glow{position:absolute;inset:-16%;background:radial-gradient(60% 60% at 50% 35%, rgba(142,162,255,.25), transparent 70%);filter:blur(18px);z-index:0}
-    .hero-photo{
-      position:relative;z-index:1;width:100%;max-width:420px;display:block;margin-left:auto;border-radius:20px;border:1px solid var(--line);
-      box-shadow:0 20px 60px rgba(0,0,0,.45), 0 0 0 8px rgba(142,162,255,.06) inset;
-    }
-    .recent-link{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none;background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));}
-    .recent-link svg{width:18px;height:18px}
+      /* HERO */
+      .hero {
+        padding: 28px 0 18px;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 80px;
+      }
+      h1 {
+        font-size: clamp(26px, 4.5vw, 42px);
+        margin: 0 0 6px;
+        line-height: 1.02;
+      }
+      .surname {
+        display: inline;
+      }
+      .role {
+        font-size: 16px;
+        color: var(--text);
+        margin-top: 6px;
+        position: relative;
+        padding-left: 4px;
+      }
+      .role:after {
+        content: "";
+        display: block;
+        width: 52px;
+        height: 3px;
+        background: var(--accent);
+        margin-top: 8px;
+        border-radius: 3px;
+      }
+      .hero-photo-wrap {
+        position: relative;
+      }
+      /*.glow{position:absolute;inset:-16%;background:radial-gradient(60% 60% at 50% 35%, rgba(142,162,255,.25), transparent 70%);filter:blur(18px);z-index:0}*/
+      .hero-photo {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 200px;
+        display: block;
+        margin-left: auto;
+        border-radius: 50px;
+        border: 1px solid var(--line);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45),
+          0 0 0 8px rgba(142, 162, 255, 0.06) inset;
+      }
 
-    /* SECTIONS */
-    section{padding:68px 0}
-    .section-title{letter-spacing:.18em;font-weight:800;color:var(--muted);text-align:center;margin:0 0 28px;font-size:18px}
+      .hero-bio {
+        margin-top: 8px;
+        font-size: 14px;
+        color: var(--muted);
+        max-width: 60ch;
+      }
 
-    /* CARDS */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));border:1px solid var(--line);border-radius:18px;padding:18px;transition:.2s transform,.2s box-shadow}
-    .card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    .card h3{margin:6px 0 8px;font-size:18px}
-    .card p{margin:0;color:var(--muted);font-size:14px}
-    .card a{display:inline-block;margin-top:12px;color:var(--accent);text-decoration:none}
+      /* SECTIONS */
+      section {
+        padding: 68px 0;
+      }
+      .section-title {
+        letter-spacing: 0.18em;
+        font-weight: 800;
+        color: var(--muted);
+        text-align: center;
+        margin: 15px 0 28px;
+        font-size: 18px;
+      }
 
-    /* INFO */
-    .info{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-    .info .panel{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0));border:1px solid var(--line);border-radius:18px;padding:20px}
-    .info ul{margin:0;padding-left:18px;color:var(--muted)}
+      /* CARDS */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0)
+        );
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        transition: 0.2s transform, 0.2s box-shadow;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      .card h3 {
+        margin: 6px 0 8px;
+        font-size: 18px;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .card a {
+        display: inline-block;
+        margin-top: 12px;
+        color: var(--accent);
+        text-decoration: none;
+      }
 
-    /* CONTACT */
-    .contact{text-align:center}
-    .cta{display:inline-block;margin-top:10px;padding:12px 18px;border-radius:14px;border:1px solid var(--line);text-decoration:none;color:var(--text)}
-    .cta:hover{background:rgba(255,255,255,.04)}
+      /* INFO */
+      .info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+      .info .panel {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0)
+        );
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px;
+      }
+      .info ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
 
-    /* FOOTER */
-    footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:14px}
+      /* CONTACT */
+      .contact {
+        text-align: center;
+      }
+      .cta {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 12px 18px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        text-decoration: none;
+        color: var(--text);
+      }
+      .cta:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
 
-    /* MOBILE */
-    @media (max-width:960px){
-      .nav ul{display:none}
-      .nav .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 12px;border-radius:10px;background:transparent;color:var(--text)}
-      .hero-grid{grid-template-columns:1fr}
-      .hero-photo{margin:24px auto 0}
-      .grid{grid-template-columns:1fr}
-      .info{grid-template-columns:1fr}
-    }
-  </style>
-</head>
-<body>
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="container nav-inner">
-      <div class="brand"><!-- TODO: tu nombre corto -->Tu Nombre</div>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#info">My info</a></li>
-        <li><a href="#contact">Contact me</a></li>
-      </ul>
-      <button class="btn" id="menuBtn" aria-label="Abrir menú">Menú ▾</button>
-    </div>
-  </nav>
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
 
-  <!-- HERO -->
-  <header id="home" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <h1>
-          <!-- TODO: tu nombre y apellido separados en dos líneas como el ejemplo -->
-          Lucas <span class="surname">Basombrio</span>
-        </h1>
-        <div class="role"> <!-- TODO: tu rol --> FullStack Developer</div>
-        <a class="recent-link" href="#work">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
-          Recent Works
-        </a>
-      </div>
-      <div class="hero-photo-wrap">
-        <div class="glow" aria-hidden="true"></div>
-        <!-- TODO: reemplaza src por tu foto (por ejemplo /assets/me.jpg) -->
-        <img class="hero-photo" src="assets/pfp.png" alt="Foto de perfil"/>
-      </div>
-    </div>
-  </header>
-
-  <!-- WORK -->
-  <section id="work" class="container">
-    <h2 class="section-title">RECENT WORKS</h2>
-    <div class="grid">
-      <!-- Tarjetas de ejemplo. Duplica/edita cuando tengas proyectos -->
-      <article class="card">
-        <div class="eyebrow" style="color:var(--muted);font-size:12px">Proyecto</div>
-        <h3>Proyecto #1</h3>
-        <p>Breve descripción (qué hace, stack, tu rol).</p>
-        <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-      </article>
-      <article class="card">
-        <div class="eyebrow" style="color:var(--muted);font-size:12px">Proyecto</div>
-        <h3>Proyecto #2</h3>
-        <p>Breve descripción (qué hace, stack, tu rol).</p>
-        <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-      </article>
-      <article class="card">
-        <div class="eyebrow" style="color:var(--muted);font-size:12px">Proyecto</div>
-        <h3>Proyecto #3</h3>
-        <p>Breve descripción (qué hace, stack, tu rol).</p>
-        <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- INFO -->
-  <section id="info" class="container">
-    <h2 class="section-title">MY INFO</h2>
-    <div class="info">
-      <div class="panel">
-        <h3 style="margin-top:0">Sobre mí</h3>
-        <p style="color:var(--muted)">Breve bio (2-3 líneas). <!-- TODO: reemplazar texto. --></p>
+      /* MOBILE */
+      @media (max-width: 960px) {
+        .nav ul {
+          display: none;
+        }
+        .nav .btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          border: 1px solid var(--line);
+          padding: 8px 12px;
+          border-radius: 10px;
+          background: transparent;
+          color: var(--text);
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-photo {
+          margin: 24px auto 0;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .info {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="container nav-inner">
+        <div class="brand">Lucas Basombrio</div>
         <ul>
-          <li>Ubicación: Ciudad, País</li>
-          <li>Stack favorito: React / .NET / SQL (ejemplo)</li>
-          <li>Buscando: QA / Frontend Jr / Soporte</li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#work">Proyectos</a></li>
+          <li><a href="#info">Info</a></li>
+          <li><a href="#contact">Contacto</a></li>
         </ul>
+        <button class="btn" id="menuBtn" aria-label="Abrir menú">Menú ▾</button>
       </div>
-      <div class="panel">
-        <h3 style="margin-top:0">Links</h3>
-        <ul>
-          <li><a href="https://github.com/tu-usuario" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/tu-perfil" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="#contact">Email</a></li>
-        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-photo-wrap">
+          <img class="hero-photo" src="assets/pfp.png" alt="Foto de perfil" />
+        </div>
+
+        <div>
+          <h1>Lucas <span class="surname">Basombrio</span></h1>
+          <div class="role">Desarrollador de Software Jr</div>
+
+          <p class="hero-bio">Frontend con React · Backend con Python · QA</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- CONTACT -->
-  <section id="contact" class="container contact">
-    <h2 class="section-title">CONTACT ME</h2>
-    <p style="color:var(--muted)">¿Te interesó mi trabajo? Escribime y charlamos.</p>
-    <!-- TODO: reemplaza el mailto por tu correo -->
-    <a class="cta" href="mailto:tu.email@ejemplo.com?subject=Contacto%20desde%20tu%20portafolio">Enviar email</a>
-  </section>
+    <!-- WORK -->
+    <section id="work" class="container">
+      <h2 class="section-title">PROYECTOS</h2>
+      <div class="grid">
+        <!-- Tarjetas de ejemplo. Duplica/edita cuando tengas proyectos -->
+        <article class="card">
+          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+            Proyecto
+          </div>
+          <h3>Proyecto #1</h3>
+          <p>Breve descripción (qué hace, stack, tu rol).</p>
+          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+        </article>
+        <article class="card">
+          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+            Proyecto
+          </div>
+          <h3>Proyecto #2</h3>
+          <p>Breve descripción (qué hace, stack, tu rol).</p>
+          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+        </article>
+        <article class="card">
+          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+            Proyecto
+          </div>
+          <h3>Proyecto #3</h3>
+          <p>Breve descripción (qué hace, stack, tu rol).</p>
+          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+        </article>
+      </div>
+    </section>
 
-  <footer>
-    <div class="container">© <span id="year"></span> Lucas Basombrio. Hecho con GitHub Pages.</div>
-  </footer>
+    <!-- INFO -->
+    <section id="info" class="container">
+      <h2 class="section-title">INFO PERSONAL</h2>
+      <div class="info">
+        <div class="panel">
+          <h3 style="margin-top: 0">Sobre mí</h3>
+          <p style="color: var(--muted)">
+            Breve bio (2-3 líneas).
+          
+          </p>
+          <ul>
+            <li>Ubicación: CABA, Argentina</li>
+            <li>Stack favorito: React / .NET / SQL (ejemplo)</li>
+            <li>Buscando: Dev Jr / QA / Soporte</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top: 0">Links</h3>
+          <ul>
+            <li>
+              <a
+                href="https://github.com/lucasbasombrio"
+                target="_blank"
+                rel="noopener"
+                >GitHub</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/lucasbasombrio/"
+                target="_blank"
+                rel="noopener"
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <a
+                href="mailto:basombrio.lucas5@gmail.com?subject=Contacto%20Portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Email
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  <script>
-    // Año dinámico
-    document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- CONTACT -->
+    <section id="contact" class="container contact">
+      <h2 class="section-title">CONTACTAME</h2>
+      <p style="color: var(--muted)">
+        ¿Te interesó mi trabajo? Escribime y charlamos.
+      </p>
+      
+      <a
+        class="cta"
+        href="mailto:basombrio.lucas5@gmail.com?subject=Contacto%20Portfolio"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Enviar mail</a
+      >
+    </section>
 
-    // Menú simple para mobile
-    const btn = document.getElementById('menuBtn');
-    const nav = document.querySelector('.nav ul');
-    btn?.addEventListener('click', () => {
-      const visible = getComputedStyle(nav).display !== 'none';
-      nav.style.display = visible ? 'none' : 'flex';
-    });
-  </script>
-</body>
+    <footer>
+      <div class="container">
+        © <span id="year"></span> Lucas Basombrio. Hecho con GitHub Pages.
+      </div>
+    </footer>
+
+    <script>
+      // Año dinámico
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Menú simple para mobile
+      const btn = document.getElementById("menuBtn");
+      const nav = document.querySelector(".nav ul");
+      btn?.addEventListener("click", () => {
+        const visible = getComputedStyle(nav).display !== "none";
+        nav.style.display = visible ? "none" : "flex";
+      });
+    </script>
+  </body>
 </html>
