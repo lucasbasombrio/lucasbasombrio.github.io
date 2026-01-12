@@ -157,11 +157,104 @@
       }
 
       /* CARDS */
+      /* =========================
+   CARDS / WORK (grid + carrusel + flechas)
+   ========================= */
+
+      /* Wrapper (donde van las flechas). 
+   Requiere que envuelvas tu .grid con:
+   <div class="work-carousel" id="workCarousel"> ... </div>
+*/
+      .work-carousel {
+        position: relative;
+      }
+
+      /* Flechas */
+      .arrow {
+        display: none; /* solo se muestran cuando hay carrusel */
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(13, 19, 48, 0.65);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 28px;
+        line-height: 1;
+        backdrop-filter: blur(10px);
+      }
+      .arrow:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .arrow-left {
+        left: -10px;
+      }
+      .arrow-right {
+        right: -10px;
+      }
+
+      /* Mostrar flechas SOLO cuando el wrapper tiene carrusel */
+      .work-carousel.is-carousel .arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* GRID base */
       .grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
+        justify-content: center; /* 🔑 si hay 1, queda centrada */
+        grid-template-columns: repeat(
+          3,
+          minmax(0, 1fr)
+        ); /* default: 3 columnas */
       }
+
+      /* 1 card: centrada con ancho lindo */
+      .grid.cols-1 {
+        grid-template-columns: minmax(280px, 520px);
+      }
+
+      /* 2 cards: dos columnas iguales */
+      .grid.cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      /* 3 cards: tres columnas */
+      .grid.cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      /* 4+ cards: carrusel horizontal con snap */
+      .grid.carousel {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: calc(
+          (100% - 40px) / 3
+        ); /* 3 visibles (gap=20 -> 2 gaps = 40) */
+        overflow-x: auto;
+        justify-content: start;
+
+        padding: 2px 10px 14px; /* espacio para flechas y “aire” */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+
+        scrollbar-width: none; /* firefox */
+      }
+      .grid.carousel::-webkit-scrollbar {
+        display: none; /* chrome */
+      }
+      .grid.carousel .card {
+        scroll-snap-align: start;
+      }
+
+      /* CARD (tu estilo) */
       .card {
         background: linear-gradient(
           180deg,
@@ -172,6 +265,7 @@
         border-radius: 18px;
         padding: 18px;
         transition: 0.2s transform, 0.2s box-shadow;
+        height: 100%;
       }
       .card:hover {
         transform: translateY(-3px);
@@ -191,6 +285,29 @@
         margin-top: 12px;
         color: var(--accent);
         text-decoration: none;
+      }
+
+      /* MOBILE */
+      @media (max-width: 960px) {
+        /* En móvil, cuando no es carrusel, todo a 1 columna */
+        .grid,
+        .grid.cols-2,
+        .grid.cols-3 {
+          grid-template-columns: 1fr;
+          justify-content: stretch;
+        }
+
+        /* En carrusel, mostrar “una grande” scrolleable */
+        .grid.carousel {
+          grid-auto-columns: 85%;
+        }
+
+        .arrow-left {
+          left: -6px;
+        }
+        .arrow-right {
+          right: -6px;
+        }
       }
 
       /* INFO */
@@ -261,9 +378,6 @@
         .hero-photo {
           margin: 24px auto 0;
         }
-        .grid {
-          grid-template-columns: 1fr;
-        }
         .info {
           grid-template-columns: 1fr;
         }
@@ -296,7 +410,7 @@
           <h1>Lucas <span class="surname">Basombrio</span></h1>
           <div class="role">Desarrollador de Software Jr</div>
 
-          <p class="hero-bio">Frontend con React · Backend con Python · QA</p>
+          <p class="hero-bio">Fullstack Developer • QA</p>
         </div>
       </div>
     </header>
@@ -304,32 +418,70 @@
     <!-- WORK -->
     <section id="work" class="container">
       <h2 class="section-title">PROYECTOS</h2>
-      <div class="grid">
-        <!-- Tarjetas de ejemplo. Duplica/edita cuando tengas proyectos -->
-        <article class="card">
-          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
-            Proyecto
-          </div>
-          <h3>Proyecto #1</h3>
-          <p>Breve descripción (qué hace, stack, tu rol).</p>
-          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-        </article>
-        <article class="card">
-          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
-            Proyecto
-          </div>
-          <h3>Proyecto #2</h3>
-          <p>Breve descripción (qué hace, stack, tu rol).</p>
-          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-        </article>
-        <article class="card">
-          <div class="eyebrow" style="color: var(--muted); font-size: 12px">
-            Proyecto
-          </div>
-          <h3>Proyecto #3</h3>
-          <p>Breve descripción (qué hace, stack, tu rol).</p>
-          <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
-        </article>
+
+      <div class="work-carousel" id="workCarousel">
+        <button class="arrow arrow-left" id="workPrev" aria-label="Anterior">
+          ‹
+        </button>
+
+        <div class="grid" id="workGrid">
+          <!-- tus cards van acá (igual que ahora) -->
+          <article class="card">
+            <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+              Proyecto
+            </div>
+            <h3>QA BuggyCar</h3>
+            <p>
+              Ejecución de pruebas y aseguramiento de calidad en soluciones de
+              software.
+            </p>
+            <a
+              href="https://drive.google.com/drive/folders/1o8_U5PJvx848VoXvq7EEJ1z1amTP_2eg?usp=sharing"
+              target="_blank"
+              rel="noopener"
+            >
+              Ver repo ↗
+            </a>
+          </article>
+
+          <article class="card">
+            <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+              Proyecto
+            </div>
+            <h3>Proyecto #2</h3>
+            <p>Breve descripción (qué hace, stack, tu rol).</p>
+            <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+          </article>
+          <article class="card">
+            <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+              Proyecto
+            </div>
+            <h3>Proyecto #3</h3>
+            <p>Breve descripción (qué hace, stack, tu rol).</p>
+            <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+          </article>
+          <article class="card">
+            <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+              Proyecto
+            </div>
+            <h3>Proyecto #2</h3>
+            <p>Breve descripción (qué hace, stack, tu rol).</p>
+            <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+          </article>
+          <article class="card">
+            <div class="eyebrow" style="color: var(--muted); font-size: 12px">
+              Proyecto
+            </div>
+            <h3>Proyecto #3</h3>
+            <p>Breve descripción (qué hace, stack, tu rol).</p>
+            <a href="#" target="_blank" rel="noopener">Ver repo ↗</a>
+          </article>
+          <!-- más cards... -->
+        </div>
+
+        <button class="arrow arrow-right" id="workNext" aria-label="Siguiente">
+          ›
+        </button>
       </div>
     </section>
 
@@ -339,10 +491,7 @@
       <div class="info">
         <div class="panel">
           <h3 style="margin-top: 0">Sobre mí</h3>
-          <p style="color: var(--muted)">
-            Breve bio (2-3 líneas).
-          
-          </p>
+          <p style="color: var(--muted)">Breve bio (2-3 líneas).</p>
           <ul>
             <li>Ubicación: CABA, Argentina</li>
             <li>Stack favorito: React / .NET / SQL (ejemplo)</li>
@@ -388,7 +537,7 @@
       <p style="color: var(--muted)">
         ¿Te interesó mi trabajo? Escribime y charlamos.
       </p>
-      
+
       <a
         class="cta"
         href="mailto:basombrio.lucas5@gmail.com?subject=Contacto%20Portfolio"
@@ -415,6 +564,103 @@
       btn?.addEventListener("click", () => {
         const visible = getComputedStyle(nav).display !== "none";
         nav.style.display = visible ? "none" : "flex";
+      });
+
+      // WORK: layout automático + flechas + autoplay
+      const workGrid = document.getElementById("workGrid");
+      const carouselWrap = document.getElementById("workCarousel");
+      const prevBtn = document.getElementById("workPrev");
+      const nextBtn = document.getElementById("workNext");
+
+      function setWorkLayout() {
+        if (!workGrid) return;
+
+        const cards = workGrid.querySelectorAll(".card");
+        const count = cards.length;
+
+        workGrid.classList.remove("cols-1", "cols-2", "cols-3", "carousel");
+        carouselWrap?.classList.remove("is-carousel");
+
+        if (count <= 1) workGrid.classList.add("cols-1");
+        else if (count === 2) workGrid.classList.add("cols-2");
+        else if (count === 3) workGrid.classList.add("cols-3");
+        else {
+          workGrid.classList.add("carousel");
+          carouselWrap?.classList.add("is-carousel");
+        }
+      }
+
+      function getStep() {
+        // avanza 1 "card" por click (ancho de una card + gap)
+        const firstCard = workGrid?.querySelector(".card");
+        if (!firstCard) return 320;
+
+        const cardWidth = firstCard.getBoundingClientRect().width;
+        const styles = getComputedStyle(workGrid);
+        const gap = parseFloat(styles.columnGap || styles.gap || "20");
+        return cardWidth + gap;
+      }
+
+      function scrollByStep(dir) {
+        if (!workGrid || !workGrid.classList.contains("carousel")) return;
+        workGrid.scrollBy({ left: dir * getStep(), behavior: "smooth" });
+      }
+
+      // Flechas
+      prevBtn?.addEventListener("click", () => scrollByStep(-1));
+      nextBtn?.addEventListener("click", () => scrollByStep(1));
+
+      // Autoplay (solo si es carrusel)
+      let autoplayId = null;
+      let paused = false;
+
+      function startAutoplay() {
+        stopAutoplay();
+        if (!workGrid || !workGrid.classList.contains("carousel")) return;
+
+        autoplayId = setInterval(() => {
+          if (paused) return;
+
+          const max = workGrid.scrollWidth - workGrid.clientWidth;
+          const atEnd = workGrid.scrollLeft >= max - 2;
+
+          if (atEnd) {
+            workGrid.scrollTo({ left: 0, behavior: "smooth" });
+          } else {
+            scrollByStep(1);
+          }
+        }, 3000); // cada 3s
+      }
+
+      function stopAutoplay() {
+        if (autoplayId) clearInterval(autoplayId);
+        autoplayId = null;
+      }
+
+      // Pausa cuando el usuario interactúa
+      carouselWrap?.addEventListener("mouseenter", () => (paused = true));
+      carouselWrap?.addEventListener("mouseleave", () => (paused = false));
+      workGrid?.addEventListener("touchstart", () => (paused = true), {
+        passive: true,
+      });
+      workGrid?.addEventListener("touchend", () => (paused = false), {
+        passive: true,
+      });
+      workGrid?.addEventListener("wheel", () => (paused = true), {
+        passive: true,
+      });
+
+      // Inicializar
+      setWorkLayout();
+      startAutoplay();
+
+      // Si cambiás la cantidad de cards (comentando/descomentando) y recargás, se recalcula.
+      // Si querés recalcular al resize:
+      window.addEventListener("resize", () => {
+        const wasCarousel = workGrid?.classList.contains("carousel");
+        setWorkLayout();
+        const isCarousel = workGrid?.classList.contains("carousel");
+        if (wasCarousel !== isCarousel) startAutoplay();
       });
     </script>
   </body>
