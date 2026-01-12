@@ -17,17 +17,22 @@ html {
 
 body {
   margin: 0;
+
+  /* ✅ más grande en general */
+  font-size: 17px;
+  line-height: 1.6;
+
   font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
-  background: radial-gradient(1200px 800px at 20% -10%, #1a224c 0%, transparent
-        60%),
+  background: radial-gradient(1200px 800px at 20% -10%, #1a224c 0%, transparent 60%),
     radial-gradient(1200px 800px at 120% 10%, #1a224c 0%, transparent 55%),
     var(--bg);
 }
 
 .container {
-  max-width: 1120px;
+  /* ✅ un poquito más ancho para que “respire” */
+  max-width: 1240px;
   margin: auto;
   padding: 0 24px;
 }
@@ -46,12 +51,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 76px; /* ✅ un toque más alto */
 }
 
 .brand {
   font-weight: 700;
   letter-spacing: 0.3px;
+  font-size: 16px; /* ✅ más grande */
 }
 
 .nav ul {
@@ -67,6 +73,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   opacity: 0.85;
+  font-size: 16px; /* ✅ más grande */
 }
 
 .nav a:hover {
@@ -79,7 +86,7 @@ body {
 
 /* HERO */
 .hero {
-  padding: 28px 0 18px;
+  padding: 34px 0 22px; /* ✅ más aire */
   border-bottom: 1px solid var(--line);
 }
 
@@ -87,12 +94,13 @@ body {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 80px;
+  gap: 90px; /* ✅ más aire */
 }
 
 h1 {
-  font-size: clamp(26px, 4.5vw, 42px);
-  margin: 0 0 6px;
+  /* ✅ más grande */
+  font-size: clamp(45px, 5.2vw, 56px);
+  margin: 0 0 8px;
   line-height: 1.02;
 }
 
@@ -101,9 +109,10 @@ h1 {
 }
 
 .role {
-  font-size: 16px;
+  /* ✅ más grande */
+  font-size: 25px;
   color: var(--text);
-  margin-top: 6px;
+  margin-top: 8px;
   position: relative;
   padding-left: 4px;
 }
@@ -111,10 +120,10 @@ h1 {
 .role:after {
   content: "";
   display: block;
-  width: 52px;
+  width: 85px; /* ✅ un poco más largo */
   height: 3px;
   background: var(--accent);
-  margin-top: 8px;
+  margin-top: 10px;
   border-radius: 3px;
 }
 
@@ -126,25 +135,27 @@ h1 {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 200px;
+  max-width: 220px; /* ✅ foto un toque más grande */
   display: block;
   margin-left: auto;
-  border-radius: 50px;
+  border-radius: 54px;
   border: 1px solid var(--line);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45),
     0 0 0 8px rgba(142, 162, 255, 0.06) inset;
 }
 
 .hero-bio {
-  margin-top: 8px;
-  font-size: 14px;
+  margin-top: 10px;
+  /* ✅ más grande */
+  font-size: 20px;
   color: var(--muted);
   max-width: 60ch;
 }
 
 /* SECTIONS */
 section {
-  padding: 68px 0;
+  /* ✅ más grande en general */
+  padding: 84px 0;
 }
 
 .section-title {
@@ -152,8 +163,10 @@ section {
   font-weight: 800;
   color: var(--muted);
   text-align: center;
-  margin: 15px 0 28px;
-  font-size: 18px;
+  /* ✅ más aire */
+  margin: 22px 0 34px;
+  /* ✅ más grande */
+  font-size: 25px;
 }
 
 /* =========================
@@ -172,14 +185,19 @@ section {
   transform: translateY(-50%);
   z-index: 5;
 
-  width: 44px;
-  height: 44px;
+  /* ✅ más grandes */
+  width: 50px;
+  height: 50px;
+
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(13, 19, 48, 0.65);
   color: var(--text);
   cursor: pointer;
-  font-size: 28px;
+
+  /* ✅ más grande */
+  font-size: 32px;
+
   line-height: 1;
   backdrop-filter: blur(10px);
 }
@@ -189,11 +207,11 @@ section {
 }
 
 .arrow-left {
-  left: -10px;
+  left: -40px;
 }
 
 .arrow-right {
-  right: -10px;
+  right: -40px;
 }
 
 /* Mostrar flechas SOLO cuando el wrapper tiene carrusel */
@@ -206,14 +224,14 @@ section {
 /* GRID base */
 .grid {
   display: grid;
-  gap: 20px;
+  gap: 22px; /* ✅ un poco más separación */
   justify-content: center; /* si hay 1, queda centrada */
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 /* 1 card */
 .grid.cols-1 {
-  grid-template-columns: minmax(280px, 520px);
+  grid-template-columns: minmax(320px, 560px); /* ✅ más grande */
 }
 
 /* 2 cards */
@@ -230,11 +248,11 @@ section {
 .grid.carousel {
   grid-template-columns: none;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 40px) / 3);
+  grid-auto-columns: calc((100% - 44px) / 3); /* ✅ gap 22px -> 2 gaps = 44px */
   overflow-x: auto;
   justify-content: start;
 
-  padding: 2px 10px 14px;
+  padding: 4px 12px 16px; /* ✅ más aire */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
 
@@ -257,8 +275,9 @@ section {
     rgba(255, 255, 255, 0)
   );
   border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 20px; /* ✅ un poco más redondo */
+  /* ✅ más padding */
+  padding: 22px;
   transition: 0.2s transform, 0.2s box-shadow;
   height: 100%;
 }
@@ -269,21 +288,25 @@ section {
 }
 
 .card h3 {
-  margin: 6px 0 8px;
-  font-size: 18px;
+  margin: 8px 0 10px;
+  /* ✅ más grande */
+  font-size: 20px;
 }
 
 .card p {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  /* ✅ más grande */
+  font-size: 16px;
+  line-height: 1.55;
 }
 
 .card a {
   display: inline-block;
-  margin-top: 12px;
+  margin-top: 14px;
   color: var(--accent);
   text-decoration: none;
+  font-size: 16px; /* ✅ más grande */
 }
 
 /* WORK MOBILE */
@@ -311,7 +334,7 @@ section {
 .info {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 28px;
+  gap: 32px; /* ✅ más aire */
 }
 
 .info .panel {
@@ -321,8 +344,8 @@ section {
     rgba(255, 255, 255, 0)
   );
   border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: 20px;
+  padding: 24px; /* ✅ más padding */
 }
 
 .info ul {
@@ -338,12 +361,14 @@ section {
 
 .cta {
   display: inline-block;
-  margin-top: 10px;
-  padding: 12px 18px;
-  border-radius: 14px;
+  margin-top: 12px;
+  /* ✅ más grande */
+  padding: 14px 22px;
+  border-radius: 16px;
   border: 1px solid var(--line);
   text-decoration: none;
   color: var(--text);
+  font-size: 16px;
 }
 
 .cta:hover {
@@ -353,9 +378,9 @@ section {
 /* FOOTER */
 footer {
   border-top: 1px solid var(--line);
-  padding: 28px 0;
+  padding: 30px 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px; /* ✅ un poco más grande */
 }
 
 /* MOBILE (NAV + HERO + INFO) */
@@ -369,18 +394,21 @@ footer {
     align-items: center;
     gap: 8px;
     border: 1px solid var(--line);
-    padding: 8px 12px;
+    padding: 10px 14px; /* ✅ más grande */
     border-radius: 10px;
     background: transparent;
     color: var(--text);
+    font-size: 16px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
+    gap: 26px; /* ✅ menos gap en mobile */
   }
 
   .hero-photo {
-    margin: 24px auto 0;
+    margin: 18px auto 0;
+    max-width: 210px;
   }
 
   .info {
