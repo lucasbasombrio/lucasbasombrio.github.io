@@ -333,8 +333,12 @@ section {
 /* INFO */
 .info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 32px; /* ✅ más aire */
+}
+
+.panel {
+  text-align: center;
 }
 
 .info .panel {
@@ -346,6 +350,11 @@ section {
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 24px; /* ✅ más padding */
+}
+
+.panel ul {
+  list-style: none;
+  padding-left: 0;
 }
 
 .info ul {

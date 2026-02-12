@@ -73,7 +73,7 @@ function startAutoplay() {
     } else {
       scrollByStep(1);
     }
-  }, 3000);
+  }, 4000);
 }
 
 function stopAutoplay() {
