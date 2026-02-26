@@ -330,6 +330,56 @@ section {
   }
 }
 
+/* qa skills */
+.panel.qa-skills {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0)
+  );
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.qa-skills-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.panel.qa-skills {
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.qa-skills ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 520px;      /* ancho cómodo para leer */
+  text-align: left;      /* escaneo natural */
+}
+
+.qa-skills li {
+  color: var(--muted);
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+
+/* “check” visual */
+.qa-skills li::before {
+  content: "✓";
+  color: var(--accent);
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+
+
 /* INFO */
 .info {
   display: grid;
@@ -424,3 +474,4 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
